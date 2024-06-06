@@ -167,4 +167,11 @@ export class Storage {
             });
         });
     }
+
+    close() {
+        this.db.close((err) => {
+            if (err)
+                console.error('Failed to close db connection: ' + err.message);
+        });
+    }
 }

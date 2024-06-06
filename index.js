@@ -52,6 +52,13 @@ app.patch('/users/me', usersController.update.bind(usersController));
 
 app.delete('/users/me', usersController.remove.bind(usersController));
 
-app.listen(config.port, () => {
+let server = app.listen(config.port, () => {
     console.log(`Server is running on port '${config.port}'`);
 })
+
+process.on('SIGTERM', () => {
+    server.close(() => {
+        console.log('Server stoped');
+    })
+    storage.close();
+});

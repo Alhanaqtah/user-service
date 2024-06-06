@@ -79,4 +79,5 @@ export class Controller {
             return res.status(500).json({'error': 'Internal error'});
         }
     }
+
 }

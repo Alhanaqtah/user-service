@@ -26,7 +26,7 @@ import jwt from 'jsonwebtoken';
             return res.status(401).json({ message: 'No token provided.' });
         }
 
-        jwt.verify(token, this.optinons.secret, { algorithms: ['HS256'] }, (err, decoded) => {
+        jwt.verify(token, options.secret, { algorithms: ['HS256'] }, (err, decoded) => {
             if (err) {
                 if (err.name === 'TokenExpiredError') {
                     this.optinons.onExpired(res);

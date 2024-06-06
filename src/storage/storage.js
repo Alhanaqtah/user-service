@@ -89,4 +89,16 @@ export class Storage {
             })
         });
     }
+
+    async getUserByID(userID) {
+        return new Promise((resolve, reject) => {
+            this.db.get('SELECT username, name, surname, email, role, is_blocked, created_at, modified_at FROM users WHERE id = ?', [userID], (err, row) => {
+                if (err) {
+                    console.error('Failed to get user: ' + err.message);
+                    reject(err);
+                }
+                resolve(row);
+            });
+        });
+    }
 }

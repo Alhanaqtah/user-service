@@ -8,8 +8,8 @@ import {Storage} from './src/storage/storage.js';
 import {Controller as AuthController} from './src/controller/auth.js';
 import {Service as AuthService} from './src/service/auth.js';
 
-// import {Controller as UsersController} from './src/controller/user.js';
-// import {Service as UsersService} from './src/service/user.js';
+import {Controller as UsersController} from './src/controller/user.js';
+import {Service as UsersService} from './src/service/user.js';
 
 import {auth} from './src/midleware/auth.js';
 
@@ -17,12 +17,12 @@ import {auth} from './src/midleware/auth.js';
 let storage = new Storage(config.storagePath);
 
 // Servie
-// let usersService = new UsersService(storage);
+let usersService = new UsersService(storage);
 let authService = new AuthService(storage, config.jwt);
 
 // Controller
-// let usersController = new UsersController(usersService);
-let authController = new AuthController(authService);
+let usersController = new UsersController(usersService);
+let authController = new AuthController(authService, config.jwt);
 
 const app = express();
 
@@ -42,7 +42,7 @@ app.post('/auth/signup', authController.signup.bind(authController));
 
 app.post('/auth/login', authController.login.bind(authController));
 
-// app.get('/users/me', usersController.get);
+app.get('/users/me', usersController.get.bind(usersController));
 
 // app.get('/users/:id', usersController.getByID);
 

@@ -47,4 +47,17 @@ export class Service {
             throw error;
         }
     }
+
+    async remove(userID) {
+        try {
+            let exists = await this.storage.findByField('id', userID);
+            if (!exists) {
+                throw new UserNotFoundError();
+            }
+
+            await this.storage.remove(userID);
+        } catch (error) {
+            throw error;
+        }
+    }
 }

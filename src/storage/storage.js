@@ -128,7 +128,23 @@ export class Storage {
 
             this.db.run(`UPDATE users SET ${fields.join(", ")} WHERE id = ?`, values, function(err, row) {
                 if (err) {
-                    console.log('Failed to update info');
+                    console.log('Failed to update info: ' + err.message);
+                    reject(err);
+                }
+                if (this.changes > 0) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
+    }
+
+    async remove(userID) {
+        return new Promise((resolve, reject) => {
+            this.db.run('DELETE FROM users WHERE id = ?', userID, function(err, row) {
+                if (err) {
+                    console.error('Failed to remove user: ' + err.message);
                     reject(err);
                 }
                 if (this.changes > 0) {

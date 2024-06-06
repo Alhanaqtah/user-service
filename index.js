@@ -50,7 +50,7 @@ app.get('/users/:id', usersController.getByID.bind(usersController));
 
 app.patch('/users/me', usersController.update.bind(usersController));
 
-// app.delete('/users/me', usersController.remove)
+app.delete('/users/me', usersController.remove.bind(usersController));
 
 app.listen(config.port, () => {
     console.log(`Server is running on port '${config.port}'`);

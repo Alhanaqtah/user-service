@@ -16,7 +16,6 @@ export class UserNotFoundError extends Error {
     }
 }
 
-
 export class Service {
     constructor(storage, tokenOptions) {
         this.storage = storage;

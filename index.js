@@ -44,7 +44,7 @@ app.post('/auth/login', authController.login.bind(authController));
 
 app.get('/users/me', usersController.get.bind(usersController));
 
-// app.get('/users/:id', usersController.getByID);
+app.get('/users/:id', usersController.getByID.bind(usersController));
 
 // app.patch('/users/me', usersController.update);
 

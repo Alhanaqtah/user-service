@@ -34,4 +34,22 @@ export class Controller {
             return res.status(500).json({'error': 'Internal error'});
         }
     }
+
+    async update(req, res) {
+        try {
+            let userID = req.token.sub;
+
+            let updatedInfo = req.body;
+
+            await this.service.updateUser(userID, updatedInfo);
+
+            return res.status(200).json({});
+        } catch (error) {
+            console.error(error);
+            if (error instanceof UserExistsError) {
+                return res.status(401).json({'error': 'Username already taken'});
+            }
+            return res.status(500).json({'error': 'Internal error'});
+        }
+    }
 }

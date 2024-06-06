@@ -29,4 +29,22 @@ export class Service {
             throw error;
         }
     }
+
+    async updateUser(userID, updatedInfo) {
+        try {
+            let exists = await this.storage.findByField('username', updatedInfo.username);
+            if (exists) {
+                throw new UserExistsError();
+            }
+
+            exists = await this.storage.findByField('email', updatedInfo.name);
+            if (exists) {
+                throw new UserExistsError();
+            }
+
+            await this.storage.updateUser(userID, updatedInfo);
+        } catch (error) {
+            throw error;
+        }
+    }
 }

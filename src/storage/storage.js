@@ -101,4 +101,42 @@ export class Storage {
             });
         });
     }
+
+    async updateUser(userID, updatedInfo) {
+        new Promise((resolve, reject) => {
+            let fields = [];
+            let values = [];
+
+            if (updatedInfo.username) {
+                values.push(updatedInfo.username);
+                fields.push('username = ?');
+            }
+            if (updatedInfo.name) {
+                values.push(updatedInfo.name);
+                fields.push('name = ?');
+            }
+            if (updatedInfo.surname) {
+                values.push(updatedInfo.surname);
+                fields.push('surname = ?');
+            }
+            if (updatedInfo.email) {
+                values.push(updatedInfo.email);
+                fields.push('email = ?');
+            }
+
+            values.push(userID);
+
+            this.db.run(`UPDATE users SET ${fields.join(", ")} WHERE id = ?`, values, function(err, row) {
+                if (err) {
+                    console.log('Failed to update info');
+                    reject(err);
+                }
+                if (this.changes > 0) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            });
+        });
+    }
 }

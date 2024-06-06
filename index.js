@@ -18,7 +18,7 @@ let storage = new Storage(config.storagePath);
 
 // Servie
 // let usersService = new UsersService(storage);
-let authService = new AuthService(storage);
+let authService = new AuthService(storage, config.jwt);
 
 // Controller
 // let usersController = new UsersController(usersService);
@@ -40,7 +40,7 @@ app.get('/healthcheck', (req, res) => {
 
 app.post('/auth/signup', authController.signup.bind(authController));
 
-// app.post('/auth/login', authController.login.bind(authController));
+app.post('/auth/login', authController.login.bind(authController));
 
 // app.get('/users/me', usersController.get);
 

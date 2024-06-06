@@ -56,4 +56,37 @@ export class Storage {
             })
         });
     }
+
+    async getPassHash(username) {
+        return new Promise((resolve, reject) => {
+            this.db.get(`SELECT pass_hash FROM users WHERE username = ?`, [username], (err, row) => {
+                if (err) {
+                    console.error("Failed to get user's pass_hash: " + err.message);
+                    reject(err);
+                } else if (row) {
+                    resolve(row.pass_hash);
+                } else {
+                    reject(null);
+                }
+            })
+        });
+    }
+
+    async userInfo(username) {
+        return new Promise((resolve, reject) => {
+            this.db.get(`SELECT id, role FROM users WHERE username = ?`, [username], (err, row) => {
+                if (err) {
+                    console.error("Failed to get user's id, pass_hash: " + err.message);
+                    reject(err);
+                } else if (row) {
+                    resolve({
+                        id: row.id,
+                        role: row.role,
+                    });
+                } else {
+                    reject(null);
+                }
+            })
+        });
+    }
 }

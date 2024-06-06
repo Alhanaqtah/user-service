@@ -42,7 +42,7 @@ app.post('/auth/signup', authController.signup.bind(authController));
 
 app.post('/auth/login', authController.login.bind(authController));
 
-// app.get('/users', usersController.getAll.bind(usersController));
+app.get('/users', usersController.getAll.bind(usersController));
 
 app.get('/users/me', usersController.get.bind(usersController));
 

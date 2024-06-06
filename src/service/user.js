@@ -17,6 +17,16 @@ export class Service {
         this.storage = storage;
     }
 
+    async getAll(userID) {
+        try {
+            let users = await this.storage.getAll();
+     
+            return users;
+        } catch(error) {
+            throw error;
+        }
+    }
+
     async getUserByID(userID) {
         try {
             let user = await this.storage.getUserByID(userID);

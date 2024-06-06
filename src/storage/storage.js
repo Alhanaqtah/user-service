@@ -32,6 +32,18 @@ export class Storage {
         });
     }
 
+    async getAll() {
+        return new Promise((resolve, reject) => {
+            this.db.all('SELECT username, name, surname, email, role, is_blocked, created_at, modified_at FROM users', (err, row) => {
+                if (err) {
+                    console.error('Failed to get all users: ' + err.message);
+                    reject(err);
+                }
+                resolve(row);
+            });
+        });
+    }
+
     async findByField(field, value) {
         return new Promise((resolve, reject) => {
             this.db.get(`SELECT ${field} FROM users WHERE ${field} = ?`, [value], (err, row) => {
@@ -126,7 +138,7 @@ export class Storage {
 
             values.push(userID);
 
-            this.db.run(`UPDATE users SET ${fields.join(", ")} WHERE id = ?`, values, function(err, row) {
+            this.db.run(`UPDATE users SET ${fields.join(", ")}, modified_at = CURRENT_TIMESTAMP WHERE id = ?`, values, function(err, row) {
                 if (err) {
                     console.log('Failed to update info: ' + err.message);
                     reject(err);

@@ -19,6 +19,17 @@ export class Controller {
         }
     }
 
+    async getAll(req, res) {
+        try {
+            let users = await this.service.getAll();
+
+            return res.status(200).json(users);
+        } catch (error) {
+            console.error(error.message);
+            return res.status(500).json({'error': 'Internal error'});
+        }
+    }
+
     async getByID(req, res) {
         try {
             let userID = req.params.id;

@@ -178,5 +178,3 @@ Common error codes:
 - `400 Bad Request`: Invalid input or user not found.
 - `401 Unauthorized`: Authentication failed or token expired.
 - `500 Internal Server Error`: An unexpected error occurred.
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.

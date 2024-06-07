@@ -18,7 +18,7 @@ export class Storage {
                 pass_hash BLOB NOT NULL,
                 email VARCHAR(100) UNIQUE,
                 role TEXT DEFAULT 'user',
-                is_blocked BOOL DEFAULT false,
+                is_blocked BOOLEAN DEFAULT false,
                 created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                 modified_at DATETIME DEFAULT CURRENT_TIMESTAMP
             )`, (err) => {
